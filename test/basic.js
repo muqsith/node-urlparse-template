@@ -87,3 +87,12 @@ describe('does not touch the non-atomic parts of the parsed url', function () {
         });
     });
 });
+
+describe('do not encode already encoded @ character', function () {
+    it('replaces %40 with @ character in url', function () {
+        expect(p('smtp://user%40{domainName}:password@mail.server.com:25/')
+            ({domainName: 'mydomain.com'}), 'to satisfy', {
+            href: 'smtp://user%40mydomain.com:password@mail.server.com:25/'
+        });
+    });
+});
